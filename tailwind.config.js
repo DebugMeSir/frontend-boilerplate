@@ -1,34 +1,34 @@
 module.exports = {
-  purge: {
-
-    enabled: false,
-    content: ['*.html'],
-
-  },
-  darkMode: "media", // or 'media' or 'class'
+  content: ["index.html", "./moevl/*/*.{html,js,scss,css,ejs}"],
   theme: {
-    fontFamily: {
-      sans: ['"Quicksand"', 'sans-serif'],
-      serif: ['"Noto Serif Display"', 'serif']
-
+    fontSize: {
+      '2xs': '.6rem',
+      'xs': '.75rem',
+      'sm': '.875rem',
+      'tiny': '.875rem',
+      'base': '1rem',
+      'lg': '1.125rem',
+      'xl': '1.25rem',
+      '2xl': '1.5rem',
+      '3xl': '1.875rem',
+      '4xl': '2.25rem',
+      '5xl': '3rem',
+      '6xl': '4rem',
+      '7xl': '5rem',
     },
+    letterSpacing: {
 
-    extend: {
-      colors: {
-        darkTrans: 'rgba(0,0,0,0.3)',
-        dark: '#333',
-        accent: '#e0bc75',
-        light: '#999',
-        grayText: '#aaa'
-      }
+      tightest: '-.075em',
+      tighter: '-.05em',
+      tight: '-.025em',
+      normal: '0',
+      wide: '.025em',
+      wider: '.05em',
+      widest: '.1em',
+
+      '2xwide': '.2em'
     },
-  },
-  variants: {
     extend: {},
   },
   plugins: [],
-  corePlugins: {
-
-    container: false,
-  }
 }

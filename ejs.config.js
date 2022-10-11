@@ -4,7 +4,7 @@ const data = require('./data.json');
 
 ejs.delimiter = '?';
 
-ejs.renderFile('ejs/index.ejs', data, null, function (err, str) {
+ejs.renderFile('moevl/ejs/index.ejs', data, null, function (err, str) {
     if (err) throw err;
     fs.writeFileSync("index.html", str);
 });

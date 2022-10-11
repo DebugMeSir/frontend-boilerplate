@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class=" border border-black">
+
+    <div class=" container mx-auto px-2 py-2  flex justify-between ">
+
+      <span class="my-auto">
+        <a class="" href="">
+          MòeVL 😎
+        </a>
+      </span>
+      </a>
+      <span class="lg:hidden border border-black bg-yellow-200 p-1 rounded" onclick="openNav()">
+        🍔 Menu
+      </span>
+      <ul class=" hidden lg:flex">
+
+        <li class="px-3">Blog</li>
+        <li class="px-3">Giới thiệu</li>
+      </ul>
+    </div>
+
+    <div
+      class="js-off-canvas text-lg w-0 bg-white border border-black  top-0 left-0   absolute z-10 overflow-x-hidden  transition duration-200 h-full">
+      <a href="javascript:void(0)" class="closebtn absolute top-5 right-5 text-xl font-semibold" onclick="closeNav()">
+        X
+      </a>
+      <div class="pt-14 px-8">
+
+        <div class="js-accordion accordion py-1">Dịch vụ</div>
+        <div class="accordion-child">
+          <div class="accordion js-accordion py-1">Dịch vụ</div>
+          <div class="accordion-child">
+            <div class="py-1">Dịch vụ</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+  </header>

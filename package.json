@@ -4,19 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "sass": "sass --watch css-parts/main.scss style.css",
-    "tailwind": "tailwindcss build -i css-parts/atomic/tailwind-core-raw.css -o css-parts/atomic/tailwind-core-built.css",
-    "node": "node ejs.config.js",
-    "nodemon": "nodemon ejs.config.js -e js,ejs,json,css,scss"
+    "nodemon": "nodemon ejs.config.js -e js,ejs,json,css,scss",
+    "sass": "sass --watch ./project/css/main.scss style.css",
+    "tailwind": "npx tailwindcss -i ./project/css/vendor/tailwind/input.css -o ./project/css/vendor/tailwind/output.css --watch",
+    "purge": "purgecss --css style.css --content index.html --output style-purged.css",
+    "autoprefixer": "npx postcss style-purged.css --use autoprefixer >  style-prefix.css "
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ejs": "^3.1.6",
-    "mongodb": "^3.6.9",
-    "mysql": "^2.18.1",
-    "pug": "^3.0.2",
-    "supervisor": "^0.12.0",
-    "tailwindcss": "^2.2.17"
+    "autoprefixer": "^10.4.12",
+    "ejs": "^3.1.8",
+    "nodemon": "^2.0.20",
+    "postcss": "^8.4.17",
+    "postcss-cli": "^10.0.0",
+    "purgecss": "^5.0.0",
+    "sass": "^1.55.0",
+    "tailwind": "^4.0.0"
   }
 }

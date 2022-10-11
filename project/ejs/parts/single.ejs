@@ -1,0 +1,464 @@
+<article class="moe-post container mx-auto px-3">
+
+    <h1 class=" font-bold text-xl md:text-2xl md:my-5">Sử dụng Google Sheets API trong công việc</h1>
+    <p class="italic text-gray-400 mb-5">Viết vào 11/2/2022</p>
+    </div>
+    <section id="content" class="ui pilled segment md" ng-non-bindable="">
+        <p>Google Sheets bảng tính là công cụ được sử dụng phải nói là nhiều vô đối trong cuộc sống và công việc của
+            chúng
+            ta. Sheets API sẽ giúp chúng ta đọc dữ liệu trong file Sheets rồi đem xử lý, hoặc ghi dữ liệu mới vào, tiết
+            kiệm
+            thời gian công sức.</p>
+
+        <p>Theo như <a href="https://developers.google.com/sheets/api/guides/authorizing">doc</a> thì đối với các file
+            sheet
+            public, ta có thể dùng <strong>API Key</strong> cũng được. Còn nếu file private thì nhất định phải có
+            <strong>access token</strong> từ người dùng Google có quyền xem sửa file. Bài này mình nói về các file
+            private
+            nhé. Tuy nhiên đối với credentials thì thay vì <strong>OAuth 2.0 Client IDs</strong> mình thử mãi vẫn lỗi,
+            mình
+            dùng <a href="https://developers.google.com/identity/protocols/oauth2/service-account"><strong>Service
+                    Account
+                    và JWT Client</strong></a> được luôn.<br>
+            <a class="fluidbox fluidbox__instance-1 fluidbox--initialized fluidbox--closed fluidbox--ready"
+                href="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/eaxa5gwu43_sheet.jpg">
+                <div class="fluidbox__wrap" style="z-index: 990;"><img
+                        src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/eaxa5gwu43_sheet.jpg" alt="alt text"
+                        class="fluidbox__thumb" style="opacity: 1;">
+                    <div class="fluidbox__ghost" style="width: 299px; height: 156px; top: 0px; left: 0px;"></div>
+                </div>
+            </a><a></a>
+        </p>
+
+        <span id="toc-ph-n-1-t-o-app-l-y-key"></span>
+        <h2 class="ui dividing header">Phần 1. Tạo app, lấy key</h2>
+
+        <span id="toc-b-c-1-t-o-google-cloud-project-kh-ng-c-n-n-p-card-"></span>
+        <h3 class="ui dividing header">Bước 1: Tạo Google Cloud project (không cần nộp card)</h3>
+
+        <ul class="ui list">
+            <li>Vào <a href="https://console.cloud.google.com">Google Cloud Console</a>
+            </li>
+            <li>Tìm nút <strong>Create Project</strong> để create
+                <a class="fluidbox fluidbox__instance-2 fluidbox--initialized fluidbox--closed fluidbox--ready"
+                    href="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/oji4nr3vyj_image.png">
+                    <div class="fluidbox__wrap" style="z-index: 990;"><img
+                            src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/oji4nr3vyj_image.png"
+                            alt="alt text" class="fluidbox__thumb" style="opacity: 1;">
+                        <div class="fluidbox__ghost" style="width: 273px; height: 90px; top: 0px; left: 0px;"></div>
+                    </div>
+                </a><a></a>
+            </li>
+        </ul>
+
+        <span id="toc-b-c-2-enable-sheets-api-trong-project"></span>
+        <h3 class="ui dividing header">Bước 2: Enable Sheets API trong project</h3>
+
+        <p>Vẫn trong cái giao diện Cloud Console, nhìn sang tab bên trái kéo lên kéo xuống tìm <strong>API &amp;
+                Services</strong><br>
+            <a class="fluidbox fluidbox__instance-3 fluidbox--initialized fluidbox--closed fluidbox--ready"
+                href="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/tf1klykp4f_image.png">
+                <div class="fluidbox__wrap" style="z-index: 990;"><img
+                        src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/tf1klykp4f_image.png" alt="alt text"
+                        class="fluidbox__thumb" style="opacity: 1;">
+                    <div class="fluidbox__ghost" style="width: 299px; height: 365px; top: 0px; left: 0px;"></div>
+                </div>
+            </a><a></a>
+        </p>
+
+        <p>Bấm Enable APIs and Services<br>
+            <a class="fluidbox fluidbox__instance-4 fluidbox--initialized fluidbox--closed fluidbox--ready"
+                href="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/jfhutjyh79_image.png">
+                <div class="fluidbox__wrap" style="z-index: 990;"><img
+                        src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/jfhutjyh79_image.png" alt="alt text"
+                        class="fluidbox__thumb" style="opacity: 1;">
+                    <div class="fluidbox__ghost" style="width: 299px; height: 134px; top: 0px; left: 0px;"></div>
+                </div>
+            </a><a></a><br>
+            Tìm <strong>Google Sheets API</strong> rồi Enable nó. Enable xong đừng đóng tab!<br>
+            <a class="fluidbox fluidbox__instance-5 fluidbox--initialized fluidbox--closed fluidbox--ready"
+                href="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/t33cvbxgo2_image.png">
+                <div class="fluidbox__wrap" style="z-index: 990;"><img
+                        src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/t33cvbxgo2_image.png" alt="alt text"
+                        class="fluidbox__thumb" style="opacity: 1;">
+                    <div class="fluidbox__ghost" style="width: 299px; height: 104px; top: 0px; left: 0px;"></div>
+                </div>
+            </a><a></a>
+        </p>
+
+        <span id="toc-b-c-3-t-o-credentials"></span>
+        <h3 class="ui dividing header">Bước 3: Tạo Credentials</h3>
+
+        <p>Ở cái tab lúc nãy, nếu chưa đóng mất thì bấm <strong>Create Credentials</strong><br>
+            <a class="fluidbox fluidbox__instance-6 fluidbox--initialized fluidbox--closed fluidbox--ready"
+                href="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/4q6pr3g4w8_image.png">
+                <div class="fluidbox__wrap" style="z-index: 990;"><img
+                        src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/4q6pr3g4w8_image.png" alt="alt text"
+                        class="fluidbox__thumb" style="opacity: 1;">
+                    <div class="fluidbox__ghost" style="width: 299px; height: 105px; top: 0px; left: 0px;"></div>
+                </div>
+            </a><a></a><br>
+            Nếu đóng mất rồi, bạn nhấn lại vào <strong>API &amp; Services</strong> &gt; <strong>Credentials</strong><br>
+            <a class="fluidbox fluidbox__instance-7 fluidbox--initialized fluidbox--closed fluidbox--ready"
+                href="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/ja3ufjk7b7_image.png">
+                <div class="fluidbox__wrap" style="z-index: 990;"><img
+                        src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/ja3ufjk7b7_image.png" alt="alt text"
+                        class="fluidbox__thumb" style="opacity: 1;">
+                    <div class="fluidbox__ghost" style="width: 299px; height: 404px; top: 0px; left: 0px;"></div>
+                </div>
+            </a><a></a>
+        </p>
+
+        <span id="toc-ch-khi-ch-n-lo-i-credentials"></span>
+        <h4 class="ui header">Chú ý: Khi chọn loại credentials</h4>
+
+        <p>Nếu bạn đang đọc doc thì sẽ được hướng dẫn tạo OAuth client. Lúc lấy access token thì mọi thứ diễn ra bình
+            thường, access token có tác dụng trong 1 tiếng. Nhưng khi hết hạn và cần phải dùng refresh token thì đôi khi
+            refresh token bị lỗi invalid. Trên mạng có mấy cách giải quyết:</p>
+
+        <ul class="ui list">
+            <li>Nguyên nhân do thay đổi scope, phải xóa token đi lấy lại</li>
+            <li>Đổi <code>access_type</code> thành <code>offline</code> trong request </li>
+            <li>Đổi <code>client_id</code> thành địa chỉ email (Google đã fix lỗi này)</li>
+            <li>và một số cases khác</li>
+        </ul>
+
+        <p>Mình đã thử hết mà vẫn lỗi. Sau cùng thì phải chọn Service Accounts thì giải quyết được</p>
+
+        <p>Bấm <strong>Create Credentials &gt; Service Account</strong><br>
+            <a class="fluidbox fluidbox__instance-8 fluidbox--initialized fluidbox--closed fluidbox--ready"
+                href="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/6vvqwc2q8o_image.png">
+                <div class="fluidbox__wrap" style="z-index: 990;"><img
+                        src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/6vvqwc2q8o_image.png" alt="alt text"
+                        class="fluidbox__thumb" style="opacity: 1;">
+                    <div class="fluidbox__ghost" style="width: 299px; height: 139px; top: 0px; left: 0px;"></div>
+                </div>
+            </a><a></a><br>
+            <a class="fluidbox fluidbox__instance-9 fluidbox--initialized fluidbox--closed fluidbox--ready"
+                href="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/khac5l5uk0_image.png">
+                <div class="fluidbox__wrap" style="z-index: 990;"><img
+                        src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/khac5l5uk0_image.png" alt="alt text"
+                        class="fluidbox__thumb" style="opacity: 1;">
+                    <div class="fluidbox__ghost" style="width: 299px; height: 193px; top: 0px; left: 0px;"></div>
+                </div>
+            </a><a></a>
+        </p>
+
+        <p>Bỏ qua bước <strong>Grant</strong></p>
+
+        <span id="toc-b-c-4-t-o-key"></span>
+        <h3 class="ui dividing header">Bước 4: Tạo Key</h3>
+
+        <p>Nhấn <strong>Edit</strong> cái service account credential vừa tạo<br>
+            <a class="fluidbox fluidbox__instance-10 fluidbox--initialized fluidbox--closed fluidbox--ready"
+                href="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/9q5w1rs4ap_image.png">
+                <div class="fluidbox__wrap" style="z-index: 990;"><img
+                        src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/9q5w1rs4ap_image.png" alt="alt text"
+                        class="fluidbox__thumb" style="opacity: 1;">
+                    <div class="fluidbox__ghost" style="width: 299px; height: 113px; top: 0px; left: 0px;"></div>
+                </div>
+            </a><a></a>
+        </p>
+
+        <p>Trong tab Key bấm Add Key</p>
+
+        <p><a class="fluidbox fluidbox__instance-11 fluidbox--initialized fluidbox--closed fluidbox--ready"
+                href="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/i6looyrvh9_image.png">
+                <div class="fluidbox__wrap" style="z-index: 990;"><img
+                        src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/i6looyrvh9_image.png" alt="alt text"
+                        class="fluidbox__thumb" style="opacity: 1;">
+                    <div class="fluidbox__ghost" style="width: 299px; height: 229px; top: 0px; left: 0px;"></div>
+                </div>
+            </a><a></a></p>
+
+        <p>Để type mặc định JSON, sau khi bấm <strong>Create</strong> nó sẽ tải file json chứa credentials về máy của
+            bạn<br>
+            <a class="fluidbox fluidbox__instance-12 fluidbox--initialized fluidbox--closed fluidbox--ready"
+                href="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/gp2i3syop2_image.png">
+                <div class="fluidbox__wrap" style="z-index: 990;"><img
+                        src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/gp2i3syop2_image.png" alt="alt text"
+                        class="fluidbox__thumb" style="opacity: 1;">
+                    <div class="fluidbox__ghost" style="width: 299px; height: 195px; top: 0px; left: 0px;"></div>
+                </div>
+            </a><a></a>
+        </p>
+
+        <span id="toc-ph-n-2-k-t-n-i-t-i-sheets-th-ng-qua-api"></span>
+        <h2 class="ui dividing header">Phần 2. Kết nối tới Sheets thông qua API</h2>
+
+        <p>Google có <a href="https://developers.google.com/sheets/api/guides/concepts">hướng dẫn kết nối bằng đủ loại
+                ngôn
+                ngữ ở đây</a>. google api nodejs client có <a
+                href="https://github.com/googleapis/google-api-nodejs-client">Github ở đây</a>. Mình sẽ viết về cách kết
+            nối
+            bằng Nodejs heng. Ai muốn test nhanh có thể down <a href="https://github.com/moevl/sheet-node">code của
+                mình</a>
+            về coi tạm, điền key vào trong file key.json rồi chạy file index.js rồi bật console log để xem thử.</p>
+
+        <span id="toc-b-c-1-cho-mail-service-account-quy-n-edit-file"></span>
+        <h3 class="ui dividing header">Bước 1. Cho mail service account quyền edit file</h3>
+
+        <p>Quay lại bước 4 lúc nãy copy cái địa chỉ mail service account, rồi chia sẻ quyền cho mail đó được edit file
+            sheet
+            của bạn </p>
+
+        <span id="toc-b-c-2-import-c-c-t-i-nguy-n"></span>
+        <h3 class="ui dividing header">Bước 2. import các tài nguyên</h3>
+
+        <p>OK bắt đầu vào việc tới code rồi</p>
+
+        <p>Đầu tiên trong bài này để cho nhanh mình import cả file json vừa tải được từ các bước trên để lát dùng. Còn ở
+            project thật thì bạn cần lưu ở nơi bảo mật hơn</p>
+
+        <pre><code class="ui segment hljs javascript"><span class="hljs-keyword">const</span> key = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./key.json'</span>);
+</code></pre>
+
+        <p>Bạn cũng cần tải cái package <strong><code>googleapis</code></strong> để vào việc cho dễ</p>
+
+        <pre><code class="ui segment hljs coffeescript"><span class="hljs-built_in">npm</span> i googleapis
+</code></pre>
+
+        <p>Cài xong ta import object google từ cái package googleapis đó vào trong file node js </p>
+
+        <pre><code class="ui segment hljs javascript"><span class="hljs-keyword">const</span> { google } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'googleapis'</span>);
+</code></pre>
+
+        <p>Lưu sheet ID của cái file ta cần xử lý, vào 1 biến, vd link file
+            <code>https://docs.google.com/spreadsheets/d/1oFYCK6Dn9lHZOaMSjfuzPEwSh5N4J3afrOufrp379JE/edit#gid=0</code>
+            thì
+            id là đoạn mã lùng nhùng giữa <code>/d/</code> và <code>/edit</code>
+        </p>
+
+        <pre><code class="ui segment hljs cs"><span class="hljs-keyword">const</span> SHEET_ID = <span class="hljs-string">'1oFYCK6Dn9lHZOaMSjfuzPEwSh5N4J3afrOufrp379JE'</span>;
+</code></pre>
+
+        <span id="toc-b-c-3-kh-i-t-o-sheets-object-v-jwt-client"></span>
+        <h3 class="ui dividing header">Bước 3. Khởi tạo sheets object và JWT Client</h3>
+
+        <p>Từ cái object google ta khởi tạo 2 thứ:</p>
+
+        <p>Khởi tạo object <strong>sheets</strong>, đây là object chứa các hàm làm việc với bảng tính</p>
+
+        <pre><code class="ui segment hljs cs"><span class="hljs-keyword">const</span> sheets = google.sheets(<span class="hljs-string">'v4'</span>);
+</code></pre>
+
+        <p>Khởi tạo <strong>JSON Web Token Client</strong>, đây là client dùng cái file key ban nãy ta tải, để authorize
+            với
+            Google</p>
+
+        <pre><code class="ui segment hljs cs"><span class="hljs-keyword">const</span> authClient = <span class="hljs-keyword">new</span> google.auth.JWT(email, keyFile, key, scopes)
+</code></pre>
+
+        <p>Trong đó </p>
+
+        <ul class="ui list">
+            <li>email: bạn điền <strong>client_email</strong> trong file key.json ban nãy</li>
+            <li>keyFile: để <strong>null</strong>
+            </li>
+            <li>key: điền <strong>private_key</strong>
+            </li>
+            <li>scopes: phạm vi quyền, ở đây điền string <code>'https://www.googleapis.com/auth/spreadsheets'</code> là
+                quyền đọc ghi Spreadsheets</li>
+        </ul>
+
+        <span id="toc-b-c-4-kh-ng-b-t-bu-c-d-ng-jwt-client-l-y-access-token"></span>
+        <h3 class="ui dividing header">Bước 4. (Không bắt buộc) Dùng JWT client để lấy access token</h3>
+
+        <p>Thật ra bước này không bắt buộc vì trong Nodejs driver của Google cho đã có sẵn hàm để authorize bằng JWT
+            Client
+            rồi, nhưng nếu trường hợp nào bạn cần dùng đến access token thì có thể lấy bằng cách gọi GET request như sau
+        </p>
+
+        <pre><code class="ui segment hljs cs"><span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> jwtClient.request({
+         url: `https:<span class="hljs-comment">//sheets.googleapis.com/v4/spreadsheets/{SHEET_ID}/`</span>
+      });
+
+</code></pre>
+
+        <p>Response trả về sẽ có chứa access token nằm trong headers bên trong object config, bạn lôi nó ra </p>
+
+        <pre><code class="ui segment hljs cs"><span class="hljs-keyword">const</span> access_token = res.config.headers.Authorization;
+</code></pre>
+
+        <span id="toc-ph-n-3-c-ghi-d-li-u-t-file-b-ng-t-nh"></span>
+        <h2 class="ui dividing header">Phần 3. Đọc ghi dữ liệu từ file bảng tính</h2>
+
+        <p>Có mấy hàm chính để xài đó là</p>
+
+        <ul class="ui list">
+            <li>
+                <code>sheets.spreadsheets.values.get</code> để đọc 1 vùng dữ liệu
+            </li>
+            <li>
+                <code>sheets.spreadsheets.values.batchGet</code> để đọc nhiều vùng dữ liệu một lúc
+            </li>
+            <li>
+                <code>sheets.spreadsheets.values.update</code> để ghi 1 vùng dữ liệu
+            </li>
+            <li>
+                <code>sheets.spreadsheets.values.batchUpdate</code> để ghi nhiều vùng dữ liệu một lúc
+            </li>
+            <li>
+                <code>sheets.spreadsheets.values.append</code> ghi nhưng append vào cuối file chứ ko đè lên những ô đã
+                có dữ
+                liệu
+            </li>
+        </ul>
+
+        <p>Theo kinh nghiệm hạn hẹp của mình thì để tránh bị quá giới hạn request limit rồi ăn cái lỗi
+            <code>Client network socket disconnected before secure TLS connection was established</code> thì có 2 cách,
+            một
+            là gửi request lẻ tẻ nhưng làm chầm chậm thôi. Hai là dồn dữ liệu lại rồi gửi cả mẻ (batch) một lúc. Cụ thể
+            cách
+            xài các hàm chắc mọi người có thể đọc ở <a href="https://developers.google.com/sheets/api/guides/values">doc
+                viết khá rõ</a>. Nên mình chỉ ví dụ về đọc ghi cả mẻ nhé.
+        </p>
+
+        <span id="toc--c-batchget"></span>
+        <h3 class="ui dividing header">Đọc - batchGet</h3>
+
+        <p>Dùng method <strong>batchGet</strong> để gởi request với option object chứa các properties là spreadsheet ID,
+            ranges, auth như sau</p>
+
+        <pre><code class="ui segment hljs groovy">const response = await sheets.spreadsheets.values.batchGet(
+         {
+<span class="hljs-label">            spreadsheetId:</span> SHEET_ID,
+<span class="hljs-label">            ranges:</span> [<span class="hljs-string">'Sheet1!A2:E'</span>,<span class="hljs-string">'Sheet2!A2:E'</span>],
+<span class="hljs-label">            auth:</span> jwtClient,
+         }
+      );
+</code></pre>
+
+        <p>Trong đó:</p>
+
+        <ul class="ui list">
+            <li>speadsheetId: là sheet ID của bạn</li>
+            <li>ranges: là 1 array gồm các vùng dữ liệu cần đọc, có thể lấy ở nhiều tab của một bảng tính, tưởng tượng
+                vùng
+                dữ liệu là một hình chữ nhật, tọa độ được xác định theo đường chéo, ô trên cùng bên trái là A2, ô dưới
+                cùng
+                bên phải là E10. theo cú pháp <code>Tên tab ! Ô ngoài cùng bên trái : Ô dưới cùng bên phải</code> thì
+                được
+                cái range là <code>Sheet1!A2:E10</code>. Nếu mình không muốn giới hạn chiều dọc của hình chữ nhật thì
+                mình
+                ghi <code>Sheet1!A2:E</code> thôi.
+                Tại sao lại là A2 mà không phải A1? Vì mình trừ hàng đầu tiên ra để ghi tiêu đề</li>
+        </ul>
+
+        <p><a class="fluidbox fluidbox__instance-13 fluidbox--initialized fluidbox--closed fluidbox--ready"
+                href="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/kuc6ngmsnw_image.png">
+                <div class="fluidbox__wrap" style="z-index: 990;"><img
+                        src="https://s3-ap-southeast-1.amazonaws.com/kipalog.com/kuc6ngmsnw_image.png" alt="alt text"
+                        class="fluidbox__thumb" style="opacity: 1;">
+                    <div class="fluidbox__ghost" style="width: 299px; height: 153px; top: 0px; left: 0px;"></div>
+                </div>
+            </a><a></a></p>
+
+        <ul class="ui list">
+            <li>auth: là cái JWT Client tạo ở bước trước</li>
+        </ul>
+
+        <p><strong>Chú ý:</strong> Các batch method thì phải có <strong>ranges</strong> mà ở non-batch phải có
+            <strong>range</strong>, khác tí là fail.
+        </p>
+
+        <p>Request thành công sẽ trả cho bạn data dạng</p>
+
+        <pre><code class="ui segment hljs groovy">{
+<span class="hljs-label">  spreadsheetId:</span> <span class="hljs-string">'1oFYCK6Dn9lHZOaMSjfuzPEwSh5N4J3afrOufrp379JE'</span>,
+<span class="hljs-label">  valueRanges:</span> [
+    {
+<span class="hljs-label">      range:</span> <span class="hljs-string">'Sheet1!A2:E1000'</span>,
+<span class="hljs-label">      majorDimension:</span> <span class="hljs-string">'ROWS'</span>,
+<span class="hljs-label">      values:</span> [Array]
+    }
+  ]
+}
+</code></pre>
+
+        <p>Cái array ở trên là dữ liệu các ô trong file sheet của ta. Bạn có thể moi nó ra như sau. Chú ý ở đây mình lấy
+            của
+            vùng dữ liệu thứ nhất nên chỗ <code>valueRanges[0]</code></p>
+
+        <pre><code class="ui segment hljs vim">const <span class="hljs-built_in">values</span> =  response.data.valueRanges[<span class="hljs-number">0</span>].<span class="hljs-built_in">values</span>;
+console.<span class="hljs-built_in">log</span>(<span class="hljs-built_in">values</span>);
+</code></pre>
+
+        <p>Thì được trả về dữ liệu là một array chứa nhiều array con tượng trưng cho các hàng trên vùng dữ liệu.</p>
+
+        <pre><code class="ui segment hljs json">[ [ 'Son Tung', '<span class="hljs-number">18</span>', 'Singer' ], [ 'Chi Pu', '<span class="hljs-number">18</span>', 'Actress' ] ]
+</code></pre>
+
+        <span id="toc-ghi-append"></span>
+        <h3 class="ui dividing header">Ghi - append</h3>
+
+        <p>Dùng method <strong>append</strong></p>
+
+        <pre><code class="ui segment hljs groovy">const response = await sheets.spreadsheets.values.append({
+<span class="hljs-label">      spreadsheetId:</span> SHEET_ID,
+<span class="hljs-label">      range:</span> [<span class="hljs-string">'Sheet1!A2:C'</span>],
+<span class="hljs-label">      auth:</span> jwtClient,
+<span class="hljs-label">      valueInputOption:</span> <span class="hljs-string">"RAW"</span>,
+<span class="hljs-label">      resource:</span> {
+<span class="hljs-label">         values:</span>  [[<span class="hljs-string">'Ton Ngo Khong'</span>, <span class="hljs-number">21</span>, <span class="hljs-string">'King of Monkeys'</span>],[<span class="hljs-string">'Kim Jong Un'</span>, <span class="hljs-number">30</span>,<span class="hljs-string">'President'</span>]]
+      }
+   });
+
+</code></pre>
+
+        <p>Trong đó:</p>
+
+        <ul class="ui list">
+            <li>3 dòng đầu giống chỗ Đọc</li>
+            <li>valueInputOption: chọn là "<strong>RAW</strong>" là ghi y như nguồn chứ không phải tính toán ra kết quả
+                gì
+                cả</li>
+            <li>resource: là 1 object có property là <strong>values</strong>, chứa array gồm nhiều array con tượng trưng
+                cho
+                nhiều hàng cần update</li>
+        </ul>
+
+        <p>Chú ý: Ở các method ghi, <strong>valueInputOption: RAW</strong> là bắt buộc</p>
+
+        <p>Muốn biết có bn dòng đc cập nhật ta dùng <code>response.data.updates.updatedCells</code> của cái response
+            object
+        </p>
+
+        <span id="toc-ghi-batchupdate"></span>
+        <h3 class="ui dividing header">Ghi - batchUpdate</h3>
+
+        <p>Gửi request bằng method batchUpdate</p>
+
+        <pre><code class="ui segment hljs groovy">  const response = await sheets.spreadsheets.values.batchUpdate({
+<span class="hljs-label">      spreadsheetId:</span> SHEET_ID,
+<span class="hljs-label">      auth:</span> jwtClient,
+<span class="hljs-label">      resource:</span> {
+<span class="hljs-label">         valueInputOption:</span> <span class="hljs-string">"RAW"</span>,
+<span class="hljs-label">         data:</span> [{
+<span class="hljs-label">            range:</span> <span class="hljs-string">"Sheet1!E2:F"</span>,
+<span class="hljs-label">            values:</span> [[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>], [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]],
+         },
+         {
+<span class="hljs-label">            range:</span> <span class="hljs-string">"Sheet1!H2:I"</span>,
+<span class="hljs-label">            values:</span> [[<span class="hljs-string">"haha"</span>, <span class="hljs-string">"hehe"</span>], [<span class="hljs-string">"huhu"</span>, <span class="hljs-string">"hichic"</span>]],
+         }
+         ],
+
+      },
+   });
+
+</code></pre>
+
+        <p>Trong đó:</p>
+
+        <ul class="ui list">
+            <li>spreadsheetId, auth: như các phần trước</li>
+            <li>resource: chú ý chỗ resource ở 2 method trước thì cái valueInputOption với range ở ngoài giờ nhảy vô
+                trong
+                resource rồi</li>
+        </ul>
+
+        <p>Bài tut đến đây là kết thúc, chúc các bạn không bị chán quá vì nó quá dài hic.</p>
+
+    </section>
+</article>
