@@ -7,6 +7,11 @@
 - font-awesome
 - glide (slider)
 
+## file chính
+
+- index.html, vì đây là development nên tất cả các screen ném tất vào đây cho tiện, rồi khi nào cần thì lấy component trong thư mục ejs, trong đó có các component cho từng section, page….
+- css: lẽ ra là style.css nhưng mới bổ sung bước autoprefixer nên style-prefix.css
+
 ## Trực tiếp viết css
 
 - các class atomic css được viết theo tinh thần của css design pattern theo như ghi chú ở trang
@@ -16,11 +21,14 @@
 - file fonts offline: otf, ttf nhét vào project/fonts
 - ảnh nhét vào project/img
 - tạo các file sau rồi dùng auto để import hết file css trong project/css vô project/css/main.scss
+
   - import font google thì nhét vào project\css\vendor\import-font.scss
   - Các variable khác của theme như màu sắc, padding…. thì nhét vào project/css/variables.scss
   - các atomic css thì nhét vào thư mục project/css/atomic
+
     - editor-ready.scss là chuyên để style trước cho những thành phần trong bài viết mà người dùng sẽ viết bài và nó đc style tương ứng, những trường hợp này k thể chèn class vào đc, vì div là do editor tự sản sinh ra. nên file này là cần thiết. và để các thành phần này đc thóng nhất thì ta dùng css variable hoặc extend class nhỏ vào. Cái này phải import sau cùng (trên flex) vì để extend những class nhỏ lẻ trước thì calss nhỏ phải đc define trước
     - cái file flex.scss phải import cuối để mấy cái media query còn đè lên width của div, width của flex child thay đổi sml nên phải tách class ra
+
       ```jsx
       .flex{
           display: flex;
@@ -42,6 +50,7 @@
           }
       }
       ```
+
     - k cần tách media query ra file scss riêng, mà nên viết chung vô cái file sass lẻ, ngay chỗ item đang làm để dễ tư duy , với lại sass nó cũng làm media query bớt rườm ra như css rồi nên k có j phải ngại. mà số lượng file sass khi chia nhỏ ra cũng đã nhiều lắm rồi đừng có thêm media qurry cho từng cái file nhỏ đấy nữa huhuhuhu
       ```scss
       .whole-doc-position {
@@ -53,7 +62,9 @@
         }
       }
       ```
+
   - Các semantic css thì nhét vào thư mục project/css/semantic
+
 - tạo các file sau rồi dùng auto để import hết file ejs trong project/ejs vào file project/ejs/index.ejs
   - ejs nhét vào project/ejs/parts rồi import
 - js nhét vào project/js rồi dùng auto để compile zô main.js
@@ -63,6 +74,7 @@
 Xem ở sau đây hoặc vào package.json mà tìm các “scripts” mà chạy “npm run script”
 
 - Trong quá trình viết thì dùng các lệnh sau, mỗi lệnh 1 tab terminal
+
   - nodemon + ejs
     ```jsx
     nodemon ejs.config.js -e js,ejs,json,css,scss
@@ -76,9 +88,11 @@ Xem ở sau đây hoặc vào package.json mà tìm các “scripts” mà chạ
     npx tailwindcss -i ./project/css/vendor/tailwind/input.css -o ./project/css/vendor/tailwind/output.css --watch
     ```
   - auto import các thứ
+
     ```jsx
 
     ```
+
 - Viết xong thì chạy các lệnh sau
   - purge
     ```jsx
