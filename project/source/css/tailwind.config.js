@@ -1,5 +1,6 @@
-module.exports = {
-  content: ["index.html", "./moevl/*/*.{html,js,scss,css,ejs}"],
+const tailwindConfig =
+{
+  content: ["index.html", "./project/*/*.{html,js,scss,css,ejs}"],
   theme: {
     fontSize: {
       '2xs': '.6rem',
@@ -32,3 +33,4 @@ module.exports = {
   },
   plugins: [],
 }
+export default tailwindConfig;

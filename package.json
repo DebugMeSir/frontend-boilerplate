@@ -1,18 +1,17 @@
 {
   "name": "html",
   "version": "1.0.0",
-  "description": "",
+  "description": "- tailwind\r - bootstrap\r - font-awesome\r - glide (slider)",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "nodemon": "nodemon ejs.config.js -e js,ejs,json,css,scss",
-    "sass": "sass --watch ./project/css/main.scss style.css",
-    "tailwind": "npx tailwindcss -i ./project/css/vendor/tailwind/input.css -o ./project/css/vendor/tailwind/output.css --watch",
-    "purge": "purgecss --css style.css --content index.html --output style-purged.css",
-    "autoprefixer": "npx postcss style-purged.css --use autoprefixer >  style-prefix.css "
+    "whilecode": "nodemon ./bot/run-while-code.js  --watch project/source -e ejs,js,scss,css",
+    "aftercode": "node ./bot/run-after-code.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^5.0.0",
     "autoprefixer": "^10.4.12",
     "ejs": "^3.1.8",
     "nodemon": "^2.0.20",
@@ -20,6 +19,16 @@
     "postcss-cli": "^10.0.0",
     "purgecss": "^5.0.0",
     "sass": "^1.55.0",
-    "tailwind": "^4.0.0"
-  }
+    "tailwind": "^4.0.0",
+    "tailwindcss": "^3.1.8"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moemoele/boilerplate-frontend-filetypebased.git"
+  },
+  "bugs": {
+    "url": "https://github.com/moemoele/boilerplate-frontend-filetypebased/issues"
+  },
+  "homepage": "https://github.com/moemoele/boilerplate-frontend-filetypebased#readme"
 }

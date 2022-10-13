@@ -1,4 +1,4 @@
-{
+const data = {
     "news": [
         {
             "_id": "60c4c230fd6fa945d45b7a3a",
@@ -135,17 +135,18 @@
             "img": "https://i.ibb.co/0jCfj2r/flc.png"
         }
     ],
-    "kor":[
+    "kor": [
         "네 눈앞에 달려들고 있는 별 낚아 채 불을 태워 봐",
         "시작이라는 걸 넌 믿을 수 있겠니, 이제야 사랑을 알 것 같아",
-"내 미래에 전해 줘 온 세상과 저 광야 위로"
+        "내 미래에 전해 줘 온 세상과 저 광야 위로"
 
     ],
-    "milestones2":[
+    "milestones2": [
         "4,627km",
         "sgd",
         "5,56M"
 
     ]
-   
+
 }
+export default data;
