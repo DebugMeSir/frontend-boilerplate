@@ -2,10 +2,12 @@
 
 ## Có sẵn các thư viện
 - tailwind
-## Chưa có 
+## Chưa có  / TODO
 - bootstrap
 - font-awesome
 - glide (slider)
+- xóa comment css, uglify css
+- kết hợp file js lại, uglify js
 ## Cách dùng
 - Viết code vào thư mục: project/source
 - Chạy lệnh `npm run whilecode` để nó render ra html với css bình thường ra thư mục project/render
