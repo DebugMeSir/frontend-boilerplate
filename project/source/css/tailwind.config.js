@@ -1,6 +1,7 @@
+import getAppRoot from "../../../get-app-root.js";
 const tailwindConfig =
 {
-  content: ["index.html", "./project/*/*.{html,js,scss,css,ejs}"],
+  content: [`${getAppRoot()}/project/**/*.{html,ejs,js}`],
   theme: {
     fontSize: {
       '2xs': '.6rem',
