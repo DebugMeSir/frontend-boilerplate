@@ -7,7 +7,7 @@ import tailwindcss from 'tailwindcss'
 import tailwindConfig from '../project/source/css/tailwind.config.js';
 import ejs from "ejs";
 import fs from 'fs';
-import data from '../project/source/assets/data.js';
+import data from '../project/render/assets/data.js';
 
 ejs.delimiter = '?';
 const files = fileFn.listFilesInManyFolders([`${getAppRoot()}/project/source/ejs`]);

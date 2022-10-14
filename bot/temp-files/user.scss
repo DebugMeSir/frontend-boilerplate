@@ -17,6 +17,11 @@ $color-main-link: #26ade0;
 $color-gradient-background: linear-gradient(90deg, #b4dcf9, #c8fff7);
 $color-gradient-underline: linear-gradient(90deg, #1d8dde, #b1f5eb, #379ab1);
 
+.bg-img-1{
+  background-image: url('./assets/img/1.jpg');
+  object-fit: cover;
+}
+
 .border-right-gray {
   border-right: 1px solid #d6d6d6;
 }
@@ -63,7 +68,7 @@ img {
 
 a {
   color: $color-accent-dark;
-  font-weight: bold;
+    font-weight: bold;
 }
 
 article.moe-post {

@@ -4,6 +4,11 @@
   color: gray;
 }
 
+.bg-img-1 {
+  background-image: url("./assets/img/1.jpg");
+  object-fit: cover;
+}
+
 .border-right-gray {
   border-right: 1px solid #d6d6d6;
 }
