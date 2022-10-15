@@ -4,9 +4,21 @@
   color: gray;
 }
 
+body {
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
 .bg-img-1 {
   background-image: url("./assets/img/1.jpg");
-  object-fit: cover;
+  background-size: cover;
+}
+
+.bg-rgba-black {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.bg-rgba-gray {
+  background-color: rgba(100, 100, 100, 0.8);
 }
 
 .border-right-gray {
@@ -54,11 +66,6 @@ img {
 
 .box-shadow-category {
   box-shadow: 3px 4px 0px #f2d1aa;
-}
-
-a {
-  color: #dc8a27;
-  font-weight: bold;
 }
 
 article.moe-post h2,

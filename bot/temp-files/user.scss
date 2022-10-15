@@ -14,14 +14,24 @@ $color-accent-dark: #dc8a27;
 $color-accent-light: #00a3cc;
 $color-main-link: #26ade0;
 
+
 $color-gradient-background: linear-gradient(90deg, #b4dcf9, #c8fff7);
 $color-gradient-underline: linear-gradient(90deg, #1d8dde, #b1f5eb, #379ab1);
 
-.bg-img-1{
-  background-image: url('./assets/img/1.jpg');
-  object-fit: cover;
+body{
+  font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 
+.bg-img-1{
+  background-image: url('./assets/img/1.jpg');
+background-size: cover;
+}
+.bg-rgba-black{
+  background-color: rgba(0,0,0,0.6)
+}
+.bg-rgba-gray{
+  background-color: rgba(100,100,100,0.8)
+}
 .border-right-gray {
   border-right: 1px solid #d6d6d6;
 }
@@ -64,11 +74,6 @@ img {
 
 .box-shadow-category {
   box-shadow: 3px 4px 0px #f2d1aa;
-}
-
-a {
-  color: $color-accent-dark;
-    font-weight: bold;
 }
 
 article.moe-post {
