@@ -7,11 +7,9 @@
 ## Chưa có / TODO
 
 - bootstrap
-- font-awesome
 - glide (slider)
 - xóa comment css, uglify css
-- kết hợp file js lại, uglify js
-- dev enviroment
+- uglify js
 
 ## Cách dùng
 
