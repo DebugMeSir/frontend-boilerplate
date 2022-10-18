@@ -1,13 +1,19 @@
 <div class="bg-img-1 p-7 max-w-md text-white">
     <div class="bg-rgba-black p-5 m-4 rounded-2xl">
         <h1 class=" text-xl font-semibold">Playlists</h1>
-        <input type="text" class="bg-zinc-400 rounded-lg w-full p-3 mt-5 mb-8">
+        <div class="relative text-black">
+            <input type="text" class="bg-zinc-400 rounded-lg w-full p-3 mt-5 mb-8">
+            <i style="top: 35px;right: 20px;" class="absolute fa fa-search"></i>
+        </div>
         <?
         for (let i=0 ; i< news.length;i++ ){
             ?>
-        <a href="">
-            <div class="pb-6 ">
-                <div>
+
+        <div class="pb-6 flex ">
+            <div class="">
+                <img class="w-14 h-14 object-cover" src="<?- news[i].img ?>" alt="">
+            </div>
+            <div class="ml-4">
                 <p class="font-semibold pb-3">
                     <?-
                      news[i].title.substring(0,25)+ '...';
@@ -18,10 +24,10 @@
                 <p class="text-xs text-gray-400">
                     <?- news[i].category ?>
                 </p>
-                </div>
-                <i class="fa fa-bars"></i>
             </div>
-        </a>
+            <!-- <i class="text-xl fa fa-ellipsis-vertical"></i> -->
+        </div>
+
 
 
         <?

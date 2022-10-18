@@ -1,8 +1,10 @@
 ::placeholder {
   color: gray;
 }
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
 
 $light-gray: #eaeaea;
 $off-white: #eeeeef;
@@ -21,7 +23,12 @@ $color-gradient-underline: linear-gradient(90deg, #1d8dde, #b1f5eb, #379ab1);
 body{
   font-family: Roboto, Arial, Helvetica, sans-serif;
 }
-
+.quicksand{
+    font-family: 'Quicksand', sans-serif;
+}
+.noto-serif{
+  font-family: 'Noto Serif', sans-serif;
+}
 .bg-img-1{
   background-image: url('./assets/img/1.jpg');
 background-size: cover;

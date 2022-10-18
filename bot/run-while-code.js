@@ -38,4 +38,8 @@ const lib_and_user_css = fileFn.concatAllInFolders({
     outputFile: `${getAppRoot()}/project/render/style.css`
 })
 
-
+const allJs = fileFn.concatAllInFolders({
+    foldersArr: [`${getAppRoot()}/project/source/js`],
+    inputFileExt: `js`,
+    outputFile: `${getAppRoot()}/project/render/script.js`
+})

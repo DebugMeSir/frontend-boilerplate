@@ -6,60 +6,72 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
+    // tailwind.config = {
 
-      theme: {
-        fontSize: {
-          '2xs': '.6rem',
-          'xs': '.75rem',
-          'sm': '.875rem',
-          'tiny': '.875rem',
-          'base': '1rem',
-          'lg': '1.125rem',
-          'xl': '1.25rem',
-          '2xl': '1.5rem',
-          '3xl': '1.875rem',
-          '4xl': '2.25rem',
-          '5xl': '3rem',
-          '6xl': '4rem',
-          '7xl': '5rem',
-        },
-        letterSpacing: {
+    //   theme: {
+    //     fontSize: {
+    //       '2xs': '.6rem',
+    //       'xs': '.75rem',
+    //       'sm': '.875rem',
+    //       'tiny': '.875rem',
+    //       'base': '1rem',
+    //       'lg': '1.125rem',
+    //       'xl': '1.25rem',
+    //       '2xl': '1.5rem',
+    //       '3xl': '1.875rem',
+    //       '4xl': '2.25rem',
+    //       '5xl': '3rem',
+    //       '6xl': '4rem',
+    //       '7xl': '5rem',
+    //     },
+    //     letterSpacing: {
 
-          tightest: '-.075em',
-          tighter: '-.05em',
-          tight: '-.025em',
-          normal: '0',
-          wide: '.025em',
-          wider: '.05em',
-          widest: '.1em',
+    //       tightest: '-.075em',
+    //       tighter: '-.05em',
+    //       tight: '-.025em',
+    //       normal: '0',
+    //       wide: '.025em',
+    //       wider: '.05em',
+    //       widest: '.1em',
 
-          '2xwide': '.2em'
-        },
-        extend: {
-          colors: {
-            clifford: '#da373d',
-          }
-        }
-      },
-      plugins: [],
-    }
+    //       '2xwide': '.2em'
+    //     },
+    //     extend: {
+    //       colors: {
+    //         clifford: '#da373d',
+    //       }
+    //     }
+    //   },
+    //   plugins: [],
+    // }
 
   </script>
   <title>Doc</title>
 </head>
+<script src="./script.js"></script>
 
 <body>
 <div class="bg-img-1 p-7 max-w-md text-white">
     <div class="bg-rgba-black p-5 m-4 rounded-2xl">
         <h1 class=" text-xl font-semibold">Playlists</h1>
-        <input type="text" class="bg-zinc-400 rounded-lg w-full p-3 mt-5 mb-8">
+        <div class="relative text-black">
+            <input type="text" class="bg-zinc-400 rounded-lg w-full p-3 mt-5 mb-8">
+            <i style="top: 35px;right: 20px;" class="absolute fa fa-search"></i>
+        </div>
         
-        <a href="">
-            <div class="pb-6 ">
-                <div>
+
+        <div class="pb-6 flex ">
+            <div class="">
+                <img class="w-14 h-14 object-cover" src="https://i.ibb.co/7gQttbX/1-1.png" alt="">
+            </div>
+            <div class="ml-4">
                 <p class="font-semibold pb-3">
                     Đặc sản nấm mối ở rừng ca...
 
@@ -67,16 +79,19 @@
                 <p class="text-xs text-gray-400">
                     Ẩm thực
                 </p>
-                </div>
-                <i class="fa fa-bars"></i>
             </div>
-        </a>
+            <!-- <i class="text-xl fa fa-ellipsis-vertical"></i> -->
+        </div>
+
 
 
         
-        <a href="">
-            <div class="pb-6 ">
-                <div>
+
+        <div class="pb-6 flex ">
+            <div class="">
+                <img class="w-14 h-14 object-cover" src="https://i.ibb.co/qdWQpQJ/1-4.jpg" alt="">
+            </div>
+            <div class="ml-4">
                 <p class="font-semibold pb-3">
                     YouTuber người Mỹ gợi ý 3...
 
@@ -84,16 +99,19 @@
                 <p class="text-xs text-gray-400">
                     Ẩm thực
                 </p>
-                </div>
-                <i class="fa fa-bars"></i>
             </div>
-        </a>
+            <!-- <i class="text-xl fa fa-ellipsis-vertical"></i> -->
+        </div>
+
 
 
         
-        <a href="">
-            <div class="pb-6 ">
-                <div>
+
+        <div class="pb-6 flex ">
+            <div class="">
+                <img class="w-14 h-14 object-cover" src="https://i.ibb.co/8z8FCwh/1-2.jpg" alt="">
+            </div>
+            <div class="ml-4">
                 <p class="font-semibold pb-3">
                     Đá nguyên khối lớn nhất V...
 
@@ -101,16 +119,19 @@
                 <p class="text-xs text-gray-400">
                     Du lịch
                 </p>
-                </div>
-                <i class="fa fa-bars"></i>
             </div>
-        </a>
+            <!-- <i class="text-xl fa fa-ellipsis-vertical"></i> -->
+        </div>
+
 
 
         
-        <a href="">
-            <div class="pb-6 ">
-                <div>
+
+        <div class="pb-6 flex ">
+            <div class="">
+                <img class="w-14 h-14 object-cover" src="https://i.ibb.co/Mg3mQtd/1-3.jpg" alt="">
+            </div>
+            <div class="ml-4">
                 <p class="font-semibold pb-3">
                     'Xuyên không' về quá khứ ...
 
@@ -118,16 +139,19 @@
                 <p class="text-xs text-gray-400">
                     Du lịch
                 </p>
-                </div>
-                <i class="fa fa-bars"></i>
             </div>
-        </a>
+            <!-- <i class="text-xl fa fa-ellipsis-vertical"></i> -->
+        </div>
+
 
 
         
-        <a href="">
-            <div class="pb-6 ">
-                <div>
+
+        <div class="pb-6 flex ">
+            <div class="">
+                <img class="w-14 h-14 object-cover" src="https://i.ibb.co/nnp2Ckv/1-1.jpg" alt="">
+            </div>
+            <div class="ml-4">
                 <p class="font-semibold pb-3">
                     Thành phố tựa trời Âu cổ ...
 
@@ -135,16 +159,19 @@
                 <p class="text-xs text-gray-400">
                     Quốc tế
                 </p>
-                </div>
-                <i class="fa fa-bars"></i>
             </div>
-        </a>
+            <!-- <i class="text-xl fa fa-ellipsis-vertical"></i> -->
+        </div>
+
 
 
         
-        <a href="">
-            <div class="pb-6 ">
-                <div>
+
+        <div class="pb-6 flex ">
+            <div class="">
+                <img class="w-14 h-14 object-cover" src="https://i.ibb.co/sWShKcP/1-2.png" alt="">
+            </div>
+            <div class="ml-4">
                 <p class="font-semibold pb-3">
                     3 bảo tàng ma quái tại Mỹ...
 
@@ -152,10 +179,10 @@
                 <p class="text-xs text-gray-400">
                     Quốc tế
                 </p>
-                </div>
-                <i class="fa fa-bars"></i>
             </div>
-        </a>
+            <!-- <i class="text-xl fa fa-ellipsis-vertical"></i> -->
+        </div>
+
 
 
         
