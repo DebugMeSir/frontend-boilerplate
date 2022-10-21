@@ -1,5 +1,7 @@
+import concat from 'concat';
+import glob from 'glob-promise';
 import path from 'path';
-
+import gulp from 'gulp'
 import fileFn from './atomic-func/file.js';
 import getAppRoot from '../get-app-root.js';
 import sass from 'sass';
@@ -8,38 +10,26 @@ import fs from 'fs';
 import data from '../project/render/assets/data.js';
 
 ejs.delimiter = '?';
-const files = fileFn.listFilesInManyFolders([`${getAppRoot()}/project/source/ejs`]);
-if (files) {
-    for (let file of files) {
+const allEJS = await glob(`**/project/source/main/ejs/*.ejs`)
+if (allEJS) {
+    for (let file of allEJS) {
         const extension = path.extname(file);
         const baseName = path.basename(file, extension);
         ejs.renderFile(file, data, null, function (err, str) {
             fs.writeFileSync(`${getAppRoot()}/project/render/${baseName}.html`, str);
         });
-
-
-
     }
-
 }
 
 
-fileFn.concatAllInFolders({
-    foldersArr: [`${getAppRoot()}/project/source/css`],
-    inputFileExt: `scss`,
-    outputFile: `${getAppRoot()}/bot/temp-files/user.scss`
-})
-const userCss = (sass.compile(`${getAppRoot()}/bot/temp-files/user.scss`)).css;
-fs.writeFileSync(`${getAppRoot()}/bot/temp-files/user.css`, userCss)
+const list_all_scss = await glob(`**/project/source/**/*.scss`)
+const list_all_css = await glob(`**/project/source/**/*.css`)
+const list_all_css_and_scss = list_all_scss.concat(list_all_css)
+const all_css_and_scss = await concat(list_all_css_and_scss);
+const converted_css = (sass.compileString(all_css_and_scss)).css;
+fs.writeFileSync(`${getAppRoot()}/project/render/style.css`, converted_css)
 
-const lib_and_user_css = fileFn.concatAllInFolders({
-    foldersArr: [`${getAppRoot()}/bot/temp-files`],
-    inputFileExt: `css`,
-    outputFile: `${getAppRoot()}/project/render/style.css`
-})
+const allJs = await glob(`**/project/source/**/*.js`)
+concat(allJs, `${getAppRoot()}/project/render/script.js`);
 
-const allJs = fileFn.concatAllInFolders({
-    foldersArr: [`${getAppRoot()}/project/source/js`],
-    inputFileExt: `js`,
-    outputFile: `${getAppRoot()}/project/render/script.js`
-})
+
