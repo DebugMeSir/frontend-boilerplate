@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "whilecode": "nodemon ./bot/run-while-code.js  --watch project/source -e ejs,js,scss,css",
-    "aftercode": "node ./bot/run-after-code.js"
+    "watch": "nodemon ./automate/run-while-code.js  --watch project/source -e ejs,js,scss,css",
+    "after": "node ./automate/run-after-code.js"
   },
   "author": "",
   "license": "ISC",
