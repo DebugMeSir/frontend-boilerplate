@@ -8,6 +8,9 @@ import ejs from "ejs";
 import getAppRoot from "../get-app-root.js";
 import data from "../project/rendered/assets/data.js";
 import { writeFile } from "fs/promises";
+ 
+import postcss from "postcss";
+import tailwindcss from "tailwindcss";
 
 ejs.delimiter = "?";
 
@@ -29,8 +32,34 @@ if (allEJS.length > 0) {
         });
     }
 }
+// build tailwind
+
+// 1. Read the input CSS file
+const inputTailwind = fs.readFileSync(
+    `${getAppRoot()}/tailwind.input.css`,
+    "utf8"
+);
+
+// 2. Process it with Tailwind via PostCSS
+postcss([tailwindcss()])
+    .process(inputTailwind, {
+        from: `${getAppRoot()}/tailwind.input.css`,
+        to: `${getAppRoot()}/project/source/lib/tailwind.output.css`,
+    })
+    .then((result) => {
+        // 3. Write output CSS
+        fs.writeFileSync(
+            `${getAppRoot()}/project/source/lib/tailwind.output.css`,
+            result.css
+        );
+        console.log("✅ Tailwind CSS built successfully");
+    })
+    .catch((err) => {
+        console.error("❌ Failed to compile Tailwind CSS:", err);
+    });
 
 // combine all pre-existed css (libs)
+
 const allCssPath = await glob(`**/project/source/**/*.css`);
 let allCss = "";
 for (const file of allCssPath) {
@@ -40,13 +69,12 @@ for (const file of allCssPath) {
         console.error(`Error reading ${file}:`, err);
     }
 }
- 
 
 // Convert main.scss to css
 const mainCss = sass.compile(
     `${getAppRoot()}/project/source/main/scss/main.scss`
 );
- 
+
 // add those two
 
 writeFile(`${renderedPath}/style.css`, allCss + mainCss.css);
