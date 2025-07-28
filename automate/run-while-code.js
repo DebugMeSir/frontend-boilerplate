@@ -3,11 +3,11 @@ import glob from "glob-promise";
 import path from "path";
 import gulp from "gulp";
 import fs from "fs";
-import sass from "sass";
+import * as sass from "sass";
 import ejs from "ejs";
-
 import getAppRoot from "../get-app-root.js";
 import data from "../project/rendered/assets/data.js";
+import { writeFile } from "fs/promises";
 
 ejs.delimiter = "?";
 
@@ -30,26 +30,26 @@ if (allEJS.length > 0) {
     }
 }
 
-// 2. Compile SCSS + CSS into one style.css
-const list_all_scss = await glob(`**/project/source/**/*.scss`);
-const list_all_css = await glob(`**/project/source/**/*.css`);
-const list_all_css_and_scss = list_all_scss.concat(list_all_css);
-
-let combinedStyles = "";
-for (const file of list_all_css_and_scss) {
+// combine all pre-existed css (libs)
+const allCssPath = await glob(`**/project/source/**/*.css`);
+let allCss = "";
+for (const file of allCssPath) {
     try {
-        combinedStyles += fs.readFileSync(file, "utf8") + "\n";
+        allCss += fs.readFileSync(file, "utf8") + "\n";
     } catch (err) {
         console.error(`Error reading ${file}:`, err);
     }
 }
+ 
 
-try {
-    const compiled = sass.compileString(combinedStyles);
-    fs.writeFileSync(`${renderedPath}/style.css`, compiled.css);
-} catch (err) {
-    console.error("Error compiling SCSS:", err);
-}
+// Convert main.scss to css
+const mainCss = sass.compile(
+    `${getAppRoot()}/project/source/main/scss/main.scss`
+);
+ 
+// add those two
+
+writeFile(`${renderedPath}/style.css`, allCss + mainCss.css);
 
 // 3. Concatenate all JS files
 const allJs = await glob(`**/project/source/**/*.js`);
